@@ -12,7 +12,11 @@ function CreatePost() {
       <div className="flex items-center gap-2">
         <img
           className="ml-1 h-10 w-10 top-0 object-cover rounded-full"
-          src={currentUser.profilePicture}
+          src={
+            currentUser.profilePicture
+              ? process.env.PUBLIC_URL + currentUser.profilePicture
+              : process.env.PUBLIC_URL + "/assets/no_avatar.jpeg"
+          }
           alt=""
         />
         <p>{currentUser.username}</p>

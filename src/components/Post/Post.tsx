@@ -63,7 +63,7 @@ const Post = ({
                 <div className="flex h-11 cursor-pointer items-center gap-2 hover:bg-slate-100">
                   <img
                     className="rounded-full h-9 w-9 object-cover "
-                    src={author.profilePicture}
+                    src={process.env.PUBLIC_URL + author.profilePicture}
                     alt=""
                   />
                   <div>
@@ -128,7 +128,7 @@ const Post = ({
         {settings.postPic && (
           <img
             className="max-h-[500px] w-full object-contain rounded-md"
-            src={settings.postPic}
+            src={process.env.PUBLIC_URL + settings.postPic}
             alt=""
           />
         )}
@@ -147,7 +147,11 @@ const Post = ({
           }}
           className="flex items-center gap-2 cursor-pointer"
         >
-          <img className="h-6" src="/assets/heart.png" alt="" />
+          <img
+            className="h-6"
+            src={process.env.PUBLIC_URL + "/assets/heart.png"}
+            alt=""
+          />
           <p className="text-[13px]">{likes.length} people like it</p>
         </div>
         {!isPostPage && (

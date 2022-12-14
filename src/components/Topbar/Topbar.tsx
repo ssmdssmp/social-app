@@ -80,7 +80,11 @@ const Topbar = () => {
               <div className=" cursor-pointer  h-10 w-fit flex justify-center items-center">
                 <img
                   className="h-10 w-10 rounded-full object-cover"
-                  src={currentUser.profilePicture || "/assets/no_avatar.jpeg "}
+                  src={
+                    currentUser.profilePicture
+                      ? process.env.PUBLIC_URL + currentUser.profilePicture
+                      : process.env.PUBLIC_URL + "/assets/no_avatar.jpeg"
+                  }
                   alt="profilepic"
                 />
               </div>

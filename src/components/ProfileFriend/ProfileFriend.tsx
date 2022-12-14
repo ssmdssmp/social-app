@@ -13,7 +13,7 @@ const ProfileFriend = ({
       <li className="flex cursor-pointer w-20 flex-col gap-1 items-center">
         <img
           className="h-20 w-20 object-cover rounded-md "
-          src={settings.profilePicture}
+          src={process.env.PUBLIC_URL + settings.profilePicture}
           alt=""
         />
         <p className="text-sm whitespace-nowrap">{settings.username}</p>

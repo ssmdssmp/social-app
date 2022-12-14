@@ -45,7 +45,10 @@ const OnlineFriends = () => {
           <div>
             <img
               className="  w-9 h-9 object-cover rounded-full"
-              src={settings.profilePicture}
+              src={
+                process.env.PUBLIC_URL + settings.profilePicture ||
+                process.env.PUBLIC_URL + "/assets/no_avatar.jpeg"
+              }
               alt=""
             />
             <span className="absolute rounded-full w-3 h-3 bg-green-500 top-0 left-6"></span>

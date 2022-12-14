@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Profilepage from "./pages/Profilepage";
 import Loginpage from "./pages/Loginpage";
@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 import { login } from "./hooks/userHooks";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/feed",
     element: <Homepage />,

@@ -74,7 +74,11 @@ const Loginpage = () => {
             <LoginForm />
             {loadingStatus.currentUser === LoadingStatusEnum.PENDING && (
               <div className="w-full flex justify-center h-10">
-                <img className="w-10" src="assets/spinner.svg" alt="spinner" />
+                <img
+                  className="w-10"
+                  src={process.env.PUBLIC_URL + "/assets/spinner.svg"}
+                  alt="spinner"
+                />
               </div>
             )}
             <hr />

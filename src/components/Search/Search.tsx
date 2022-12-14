@@ -75,7 +75,10 @@ const Search = () => {
                     <div className="flex items-center gap-5">
                       <img
                         className="w-10 h-10 rounded-sm object-cover"
-                        src={item.profilePicture || "/assets/no_avatar.jpeg"}
+                        src={
+                          process.env.PUBLIC_URL + item.profilePicture ||
+                          process.env.PUBLIC_URL + "/assets/no_avatar.jpeg"
+                        }
                         alt=""
                       />
                       <p className="w-32">{item.username}</p>
@@ -106,7 +109,7 @@ const Search = () => {
                     {item.postPic ? (
                       <img
                         className="h-10 w-10 rounded-sm"
-                        src={item.postPic}
+                        src={process.env.PUBLIC_URL + item.postPic}
                         alt={"search post pic"}
                       />
                     ) : (

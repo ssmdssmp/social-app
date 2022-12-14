@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
@@ -22,7 +21,7 @@ const Navigation = () => {
         <div className="flex h-11 cursor-pointer items-center gap-2 px-4 hover:bg-slate-100">
           <img
             className="rounded-full h-9 w-9 object-cover "
-            src={settings.profilePicture}
+            src={process.env.PUBLIC_URL + settings.profilePicture}
             alt=""
           />
           <p>{settings.username}</p>

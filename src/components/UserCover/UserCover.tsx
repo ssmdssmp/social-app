@@ -25,7 +25,7 @@ const UserCover = () => {
         {userLoadingStatus === LoadingStatusEnum.FULFILLED ? (
           <img
             className="h-64 object-cover object-center border-b-2"
-            src={user.coverPicture}
+            src={process.env.PUBLIC_URL + user.coverPicture}
             alt="userPicture"
           />
         ) : (
@@ -38,8 +38,8 @@ const UserCover = () => {
                 className={`rounded-full object-cover border-2 border-white h-40 w-40`}
                 src={
                   userLoadingStatus === LoadingStatusEnum.FULFILLED
-                    ? user.profilePicture
-                    : "/assets/no_avatar.jpeg"
+                    ? process.env.PUBLIC_URL + user.profilePicture
+                    : process.env.PUBLIC_URL + "/assets/no_avatar.jpeg"
                 }
                 alt=""
               />

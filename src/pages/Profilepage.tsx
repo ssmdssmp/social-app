@@ -66,7 +66,11 @@ const Profilepage = () => {
             {id === currentUserId && <CreatePost />}
             <ul className="flex flex-col gap-5 w-full items-center pb-5">
               {loadingStatus.feed === LoadingStatusEnum.PENDING && (
-                <img className="w-20" src="/assets/spinner.svg" alt="spinner" />
+                <img
+                  className="w-20"
+                  src={process.env.PUBLIC_URL + "/assets/spinner.svg"}
+                  alt="spinner"
+                />
               )}
 
               {user.posts.map((item) => {
@@ -80,7 +84,11 @@ const Profilepage = () => {
                 );
               })}
               {loadingStatus.user === LoadingStatusEnum.PENDING && (
-                <img className="h-20" src="/assets/spinner.svg" alt="loader" />
+                <img
+                  className="h-20"
+                  src={process.env.PUBLIC_URL + "/assets/spinner.svg"}
+                  alt="loader"
+                />
               )}
             </ul>
           </div>

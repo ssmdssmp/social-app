@@ -47,7 +47,11 @@ const Feed = () => {
       <CreatePost />
       <ul className="w-4/5 h-auto flex flex-col items-center gap-5">
         {loadingStatus.feed === LoadingStatusEnum.PENDING && (
-          <img className="w-20 " src="/assets/spinner.svg" alt="" />
+          <img
+            className="w-20 "
+            src={process.env.PUBLIC_URL + "/assets/spinner.svg"}
+            alt=""
+          />
         )}
         {feed.data.map((item) => {
           return (
@@ -58,7 +62,11 @@ const Feed = () => {
 
       {loadingStatus.currentUser === LoadingStatusEnum.FULFILLED &&
       loadingStatus.feed === LoadingStatusEnum.PENDING ? (
-        <img className="w-20 " src="/assets/spinner.svg" alt="" />
+        <img
+          className="w-20 "
+          src={process.env.PUBLIC_URL + "/assets/spinner.svg"}
+          alt=""
+        />
       ) : (
         <>
           {feed.ended && <p className="text-sm text-red-400"> No more posts</p>}
