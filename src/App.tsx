@@ -40,8 +40,13 @@ const App = () => {
   useEffect(() => {
     const currentUserLocal: null | string = localStorage.getItem("currentUser");
     console.log(currentUserLocal);
-    //@ts-ignore
-    if (JSON.parse(currentUserLocal).email !== "") {
+
+    if (
+      //@ts-ignore
+      JSON.parse(currentUserLocal).email !== null &&
+      //@ts-ignore
+      JSON.parse(currentUserLocal).email !== ""
+    ) {
       //@ts-ignore
       dispatch(login(JSON.parse(currentUserLocal)));
     }
