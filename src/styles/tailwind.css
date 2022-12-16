@@ -4,7 +4,11 @@
   margin: 0;
   font-family: "Roboto", sans-serif;
 } /* Your own custom base styles */
-
+body,
+html {
+  height: 100%;
+  overflow: hidden;
+}
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

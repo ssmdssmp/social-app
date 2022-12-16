@@ -39,11 +39,10 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const currentUserLocal: null | string = localStorage.getItem("currentUser");
-    console.log(currentUserLocal);
-
     if (
+      currentUserLocal !== null &&
       //@ts-ignore
-      JSON.parse(currentUserLocal).email !== null &&
+
       //@ts-ignore
       JSON.parse(currentUserLocal).email !== ""
     ) {

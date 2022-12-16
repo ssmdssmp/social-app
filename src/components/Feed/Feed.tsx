@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CreatePost from "../CreatePost/CreatePost";
 import { Button } from "@mui/material";
 import Post from "../Post/Post";
@@ -7,6 +8,8 @@ import { LoadingStatusEnum } from "../../types";
 import { useRef } from "react";
 import { getFeed } from "../../hooks/postHooks";
 import { nanoid } from "@reduxjs/toolkit";
+import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
+import PersonIcon from "@mui/icons-material/Person";
 const Feed = () => {
   const dispatch = useDispatch();
   const feedRef = useRef(null);
@@ -53,6 +56,26 @@ const Feed = () => {
             src={process.env.PUBLIC_URL + "/assets/spinner.svg"}
             alt=""
           />
+        )}
+        {currentUser._id === "" && (
+          <div className="flex flex-col items-center gap-2">
+            <PersonIcon sx={{ width: "50px", height: "50px" }} />
+            <p className="text-sm text-slate-600">
+              You need to be logged in to see feed
+            </p>
+            <Link to="/login">
+              <Button variant="contained"> Login</Button>
+            </Link>
+          </div>
+        )}
+        {feed.data.length === 0 && currentUser._id !== "" && (
+          <div className="flex flex-col gap-2 items-center justify-center">
+            <DynamicFeedIcon sx={{ width: "50px", height: "50px" }} />
+
+            <p className="text-sm text-slate-600">
+              Follow someone or create post to see feed
+            </p>
+          </div>
         )}
         {feed.data.map((item) => {
           return (

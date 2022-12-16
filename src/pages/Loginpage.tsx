@@ -16,6 +16,8 @@ const Loginpage = () => {
   const [isOpenRegForm, setIsOpenRegForm] = useState(false);
   const defaultStyleWrapper = {
     opacity: 0,
+    height: "100vh",
+    overflow: "hidden",
     transition: "opacity 0.2s ease-in-out",
     display: "none",
   };
@@ -40,7 +42,7 @@ const Loginpage = () => {
   return (
     <Transition timeout={0} in={isOpenRegForm}>
       {(state) => (
-        <div className="w-screen h-screen flex flex-col justify-center gap-10 items-center bg-slate-100 md:flex-row md:gap-32 md:justify-center md:items-center ">
+        <div className="w-screen h-screen flex flex-col justify-center gap-10 items-center bg-slate-100 md:flex-row md:gap-16 md:justify-center md:items-center ">
           <div
             onClick={() => setIsOpenRegForm(false)}
             style={{
@@ -63,8 +65,53 @@ const Loginpage = () => {
               </div>
             )}
           </Transition>
-          <div className="  flex items-center justify-center">
+          <div className="  flex items-center justify-center  h-[400px] flex-col gap-8">
             <h1 className="text-[55px] text-sky-600">React.Social</h1>
+            <div className="flex flex-col  gap-8 items-center ">
+              <div className="flex gap-5">
+                <div className="flex  gap-2">
+                  <div className="flex flex-col items-center gap-2">
+                    <p className="text-sm text-slate-500">
+                      Test <span className="text-sky-500"> User 1</span>
+                    </p>
+                    <div className="flex flex-col gap-2 ">
+                      <div className="flex gap-2 items-center">
+                        <p className="text-sm text-slate-500">email:</p>{" "}
+                        <p className="text-sm text-sky-500">
+                          sfasfa22qq244@gmail.com
+                        </p>
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <p className="text-sm text-slate-500">password:</p>{" "}
+                        <p className="text-sm text-sky-500">155w123q1111q</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex  gap-2">
+                  <div className="flex flex-col items-center gap-2">
+                    <p className="text-sm text-slate-500">
+                      Test <span className="text-red-400"> User 1</span>
+                    </p>
+                    <div className="flex flex-col gap-2 ">
+                      <div className="flex gap-2 items-center">
+                        <p className="text-sm text-slate-500">email:</p>{" "}
+                        <p className="text-sm text-red-400">
+                          qwerty123@gmail.com
+                        </p>
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <p className="text-sm text-slate-500">password:</p>{" "}
+                        <p className="text-sm text-red-400">1213141516</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-slate-600">
+                To test websocket, connect with two accounts
+              </p>
+            </div>
           </div>
           <div className=" w-[450px] min-w-[350px] flex shadow-lg  flex-col p-10 justify-center gap-3 bg-white h-[380px] rounded-xl relative">
             <LoginForm />
