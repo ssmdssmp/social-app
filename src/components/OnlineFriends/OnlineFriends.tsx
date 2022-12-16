@@ -14,7 +14,7 @@ const OnlineFriends = () => {
   );
   useEffect((): any => {
     if (socketRef.current == null) {
-      socketRef.current = io("http://localhost:8801", {
+      socketRef.current = io("https://social-app-socket.onrender.com", {
         transports: ["websocket"],
       });
     }
@@ -23,6 +23,7 @@ const OnlineFriends = () => {
     socket.open();
 
     socket.on("ping", (data: string[]) => {
+      console.log("ping", data);
       //@ts-ignore
       dispatch(setOnlineFollowings(data));
       socket.emit("pong", {
