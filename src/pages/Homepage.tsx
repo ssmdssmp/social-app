@@ -4,11 +4,9 @@ import Feed from "../components/Feed/Feed";
 import Rightbar from "../components/Rightbar/Rightbar";
 import { useSelector } from "react-redux";
 import { SocialType } from "../types";
+import { useEffect } from "react";
 
 const Homepage = () => {
-  const currentUser = useSelector(
-    ({ social }: SocialType) => social.currentUser.data
-  );
   return (
     <div>
       <Topbar />

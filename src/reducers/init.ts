@@ -32,7 +32,10 @@ export const initialState: InitStateType = {
   },
   user: {
     data: initUser,
-    posts: [],
+    posts: {
+      data: [],
+      ended: false,
+    },
     followers: [],
     followings: [],
   },

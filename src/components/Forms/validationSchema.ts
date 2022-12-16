@@ -26,7 +26,10 @@ export const registrationValidationSchema = yup.object({
 });
 export const createPostValidationSchema = yup.object({
   userId: yup.string().required(),
-  desc: yup.string().required("Post need include at least one character"),
+  desc: yup
+    .string()
+    .required("Post need include at least one character")
+    .min(1),
   postPic: yup.string(),
 });
 export const updatePostValidationSchema = yup.object({

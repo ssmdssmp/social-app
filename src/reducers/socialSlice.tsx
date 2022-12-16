@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LoadingStatusEnum, PostType } from "../types/index";
+import { LoadingStatusEnum } from "../types/index";
 import {
   getFeed,
   createPost,
@@ -43,7 +43,7 @@ const socialSlice = createSlice({
       state.currentUser.posts = [];
       state.currentUser.followers = [];
       state.currentUser.followings = [];
-      localStorage.removeItem("currentUser");
+
       state.loadingStatus.currentUser = LoadingStatusEnum.IDLE;
     },
     setOnlineFollowings: (state, { payload }: { payload: string[] }) => {
@@ -84,10 +84,11 @@ const socialSlice = createSlice({
 
       .addCase(getUser.fulfilled, (state, { payload }) => {
         state.user.data = payload.user;
-        state.user.posts = payload.userPosts;
+        state.user.posts.data = payload.userPosts;
         state.user.followings = payload.followings;
         state.user.followers = payload.followers;
         state.loadingStatus.user = LoadingStatusEnum.FULFILLED;
+        state.user.posts.ended = false;
       })
       .addCase(getUser.rejected, (state) => {
         state.user.data = initUser;
@@ -97,7 +98,10 @@ const socialSlice = createSlice({
         state.loadingStatus.user = LoadingStatusEnum.PENDING;
       })
       .addCase(getUserPosts.fulfilled, (state, { payload }) => {
-        state.user.posts = state.user.posts.concat(payload);
+        state.user.posts.data = state.user.posts.data.concat(payload);
+        if (payload.length < 5) {
+          state.user.posts.ended = true;
+        }
         state.loadingStatus.user = LoadingStatusEnum.FULFILLED;
       })
       .addCase(getUserPosts.rejected, (state) => {
@@ -148,6 +152,12 @@ const socialSlice = createSlice({
           state.currentUser.data,
         ];
       })
+      .addCase(registration.pending, (state) => {
+        state.loadingStatus.currentUser = LoadingStatusEnum.PENDING;
+      })
+      .addCase(registration.rejected, (state) => {
+        state.loadingStatus.currentUser = LoadingStatusEnum.REJECTED;
+      })
       .addCase(login.rejected, (state) => {
         state.currentUser.data = initUser;
         state.loadingStatus.currentUser = LoadingStatusEnum.REJECTED;
@@ -160,7 +170,7 @@ const socialSlice = createSlice({
         } else {
           state.feed.data = state.feed.data.concat(payload);
         }
-        if (payload.length === 0) {
+        if (payload.length < 5) {
           state.feed.ended = true;
         }
       })
@@ -173,7 +183,10 @@ const socialSlice = createSlice({
       })
       .addCase(createPost.fulfilled, (state, { payload }) => {
         state.feed.data.unshift(payload);
-
+        state.currentUser.posts.unshift(payload);
+        if (state.user.data._id === state.currentUser.data._id) {
+          state.user.posts.data.unshift(payload);
+        }
         state.loadingStatus.feed = LoadingStatusEnum.FULFILLED;
       })
       .addCase(createPost.pending, (state) => {
@@ -185,6 +198,11 @@ const socialSlice = createSlice({
       .addCase(deletePost.fulfilled, (state, { payload }) => {
         state.feed.data = state.feed.data.filter((el) => el._id !== payload);
         state.currentUser.posts.filter((el) => el._id !== payload);
+        if (state.currentUser.data._id === state.user.data._id) {
+          state.user.posts.data = state.user.posts.data.filter(
+            (el) => el._id !== payload
+          );
+        }
         state.loadingStatus.feed = LoadingStatusEnum.FULFILLED;
       })
       .addCase(deletePost.pending, (state) => {
@@ -194,8 +212,19 @@ const socialSlice = createSlice({
         state.loadingStatus.feed = LoadingStatusEnum.REJECTED;
       })
       .addCase(updatePost.fulfilled, (state, { payload }) => {
-        const index = state.feed.data.findIndex((el) => el._id === payload._id);
-        state.feed.data[index] = payload;
+        state.feed.data = [
+          payload,
+          ...state.feed.data.filter((el) => el._id !== payload._id),
+        ];
+        state.currentUser.posts = [
+          payload,
+          ...state.currentUser.posts.filter((el) => el._id !== payload._id),
+        ];
+        state.user.posts.data = [
+          payload,
+          ...state.user.posts.data.filter((el) => el._id !== payload._id),
+        ];
+
         state.postDraft = initPostDraft;
         state.loadingStatus.feed = LoadingStatusEnum.FULFILLED;
       })

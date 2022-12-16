@@ -6,6 +6,7 @@ import { SocialType } from "../../types";
 import { LoadingStatusEnum } from "../../types";
 import { useRef } from "react";
 import { getFeed } from "../../hooks/postHooks";
+import { nanoid } from "@reduxjs/toolkit";
 const Feed = () => {
   const dispatch = useDispatch();
   const feedRef = useRef(null);
@@ -17,7 +18,7 @@ const Feed = () => {
     ({ social }: SocialType) => social.currentUser.data
   );
 
-  const scrolltoFeedTop = () => {
+  const scrollToFeedTop = () => {
     //@ts-ignore
     feedRef.current.scrollTo({
       top: 0,
@@ -55,33 +56,27 @@ const Feed = () => {
         )}
         {feed.data.map((item) => {
           return (
-            <Post scrolltoFeedTop={() => scrolltoFeedTop()} settings={item} />
+            <Post
+              key={nanoid()}
+              scrolltoFeedTop={() => scrollToFeedTop()}
+              settings={item}
+            />
           );
         })}
       </ul>
-
       {loadingStatus.currentUser === LoadingStatusEnum.FULFILLED &&
-      loadingStatus.feed === LoadingStatusEnum.PENDING ? (
-        <img
-          className="w-20 "
-          src={process.env.PUBLIC_URL + "/assets/spinner.svg"}
-          alt=""
-        />
-      ) : (
+        loadingStatus.feed === LoadingStatusEnum.PENDING && (
+          <img
+            className="w-20 "
+            src={process.env.PUBLIC_URL + "/assets/spinner.svg"}
+            alt=""
+          />
+        )}
+      {feed.ended && (
         <>
-          {feed.ended && <p className="text-sm text-red-400"> No more posts</p>}
-          <Button
-            onClick={() =>
-              feed.ended
-                ? scrolltoFeedTop()
-                : dispatch(
-                    // @ts-ignore
-                    getFeed({ id: currentUser._id, offset: feed.data.length })
-                  )
-            }
-            variant="contained"
-          >
-            {feed.ended ? "to top" : "load more"}
+          <p className="text-sm text-red-400"> No more posts</p>
+          <Button variant="contained" onClick={() => scrollToFeedTop()}>
+            to top
           </Button>
         </>
       )}

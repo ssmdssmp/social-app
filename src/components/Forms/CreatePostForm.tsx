@@ -32,24 +32,22 @@ const CreatePostForm = () => {
       desc: postDraft ? postDraft.desc : "",
       postPic: postDraft ? postDraft.postPic : "",
       createdAt: postDraft ? postDraft.createdAt : "",
+      // userId: "",
+      // desc: "",
+      // postPic: "",
+      // createdAt: "",
       updatedAt: "",
     },
     enableReinitialize: true,
-    validationSchema: postDraft
-      ? updatePostValidationSchema
-      : createPostValidationSchema,
+    validationSchema:
+      postDraft._id !== ""
+        ? updatePostValidationSchema
+        : createPostValidationSchema,
     onSubmit: (values, { resetForm }) => {
       if (postDraft._id !== "") {
-        if (values.desc === "" && values.postPic === "") {
-          //@ts-ignore
-          dispatch(deletePost(postDraft._id));
-        } else {
-          values.updatedAt = new Date().toString();
-          //@ts-ignore
-          dispatch(updatePost({ id: postDraft._id, data: values }));
-        }
-
-        // dispatch(clearPostDraft());
+        values.updatedAt = new Date().toString();
+        //@ts-ignore
+        dispatch(updatePost({ id: postDraft._id, data: values }));
       } else {
         values.createdAt = new Date().toString();
         //@ts-ignore

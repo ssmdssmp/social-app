@@ -12,12 +12,8 @@ const Loginpage = () => {
   const loadingStatus = useSelector(
     ({ social }: SocialType) => social.loadingStatus
   );
+
   const [isOpenRegForm, setIsOpenRegForm] = useState(false);
-  useEffect(() => {
-    if (loadingStatus.currentUser === LoadingStatusEnum.FULFILLED) {
-      navigate("/feed");
-    }
-  }, [loadingStatus.currentUser]);
   const defaultStyleWrapper = {
     opacity: 0,
     transition: "opacity 0.2s ease-in-out",

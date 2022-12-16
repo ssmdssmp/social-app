@@ -79,7 +79,7 @@ const Topbar = () => {
             return (
               <div className=" cursor-pointer  h-10 w-fit flex justify-center items-center">
                 <img
-                  className="h-10 w-10 rounded-full object-cover"
+                  className="h-[40px] w-[40px] rounded-full object-cover"
                   src={
                     currentUser.profilePicture
                       ? process.env.PUBLIC_URL + currentUser.profilePicture
@@ -95,6 +95,7 @@ const Topbar = () => {
           <Link
             to="/login"
             onClick={() => {
+              localStorage.removeItem("currentUser");
               dispatch(logout());
             }}
           >

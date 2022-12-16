@@ -45,7 +45,10 @@ export type InitStateType = {
   };
   user: {
     data: UserType;
-    posts: PostType[];
+    posts: {
+      data: PostType[];
+      ended: boolean;
+    };
     followers: UserType[];
     followings: UserType[];
   };

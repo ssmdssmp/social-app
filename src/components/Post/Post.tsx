@@ -56,7 +56,7 @@ const Post = ({
             {author && (
               <Link
                 onClick={() => {
-                  // scrollToProfileTop && scrollToProfileTop();
+                  scrollToProfileTop && scrollToProfileTop();
                 }}
                 to={`/person/${author._id}`}
               >

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { io } from "socket.io-client";
 import { setOnlineFollowings } from "../../reducers/socialSlice";
 import { useDispatch } from "react-redux";
+import GroupIcon from "@mui/icons-material/Group";
 const OnlineFriends = () => {
   const dispatch: Function = useDispatch();
   const socketRef = useRef(null as any);
@@ -65,6 +66,12 @@ const OnlineFriends = () => {
         {currentUser.onlineFollowings.map((item) => {
           return <OnlineFriend settings={item} />;
         })}
+        {currentUser.onlineFollowings.length === 0 && (
+          <div className="flex gap-3 opacity-40 pl-1">
+            <p>No friends online</p>
+            <GroupIcon />
+          </div>
+        )}
       </ul>
     </div>
   );

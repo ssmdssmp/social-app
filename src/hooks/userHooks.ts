@@ -36,6 +36,7 @@ export const registration = createAsyncThunk<LoginDataType>(
 export const getUserPosts = createAsyncThunk<PostType[]>(
   "social/getUserPosts",
   ({ id, offset }: any) => {
+    console.log(id, offset);
     return axios
       .get(
         `https://social-app-backend-m2ex.onrender.com/api/users/posts/${id}/${offset}`

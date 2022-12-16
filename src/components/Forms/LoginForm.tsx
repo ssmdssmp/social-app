@@ -14,14 +14,10 @@ const LoginForm = () => {
   const currentUser = useSelector(
     ({ social }: SocialType) => social.currentUser.data
   );
-  const loadStatus = useSelector(
-    ({ social }: SocialType) => social.loadingStatus.currentUser
+  const loadingStatus = useSelector(
+    ({ social }: SocialType) => social.loadingStatus
   );
-  useEffect(() => {
-    if (currentUser._id !== "") {
-      navigate("/feed");
-    }
-  }, [currentUser._id]);
+
   const loginFormik = useFormik({
     initialValues: {
       email: "",
@@ -34,12 +30,14 @@ const LoginForm = () => {
       localStorage.setItem("currentUser", JSON.stringify(values));
     },
   });
-
+  useEffect(() => {
+    if (loadingStatus.currentUser === LoadingStatusEnum.FULFILLED) {
+      navigate("/feed");
+    }
+  }, [loadingStatus.currentUser]);
   return (
     <form
-      className={`flex flex-col items-center {${
-        loadStatus === LoadingStatusEnum.PENDING && "blur-sm"
-      }:'blur-0'} justify-between gap-3`}
+      className={`flex flex-col items-center justify-between gap-3`}
       onSubmit={loginFormik.handleSubmit}
     >
       <WhiteBorderTextField
@@ -77,6 +75,9 @@ const LoginForm = () => {
       >
         Login
       </Button>
+      {loadingStatus.currentUser === LoadingStatusEnum.REJECTED && (
+        <p className="text-[12px] text-red-400">Wrong email or password.</p>
+      )}
       <div className="text-[12px] underline opacity-60 mt-2 cursor-pointer">
         Forgot password?
       </div>

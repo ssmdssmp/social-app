@@ -22,7 +22,8 @@ const UserCover = () => {
   return (
     user && (
       <div className="mt-16 flex flex-col gap-5 h-[85] ">
-        {userLoadingStatus === LoadingStatusEnum.FULFILLED ? (
+        {userLoadingStatus === LoadingStatusEnum.FULFILLED &&
+        user.coverPicture !== "" ? (
           <img
             className="h-64 object-cover object-center border-b-2"
             src={process.env.PUBLIC_URL + user.coverPicture}
@@ -37,7 +38,8 @@ const UserCover = () => {
               <img
                 className={`rounded-full object-cover border-2 border-white h-40 w-40`}
                 src={
-                  userLoadingStatus === LoadingStatusEnum.FULFILLED
+                  userLoadingStatus === LoadingStatusEnum.FULFILLED &&
+                  user.profilePicture !== ""
                     ? process.env.PUBLIC_URL + user.profilePicture
                     : process.env.PUBLIC_URL + "/assets/no_avatar.jpeg"
                 }

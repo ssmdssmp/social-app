@@ -38,8 +38,10 @@ const router = createHashRouter([
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    const currentUserLocal = localStorage.getItem("currentUser");
-    if (currentUserLocal !== null) {
+    const currentUserLocal: null | string = localStorage.getItem("currentUser");
+    console.log(currentUserLocal);
+    //@ts-ignore
+    if (JSON.parse(currentUserLocal).email !== "") {
       //@ts-ignore
       dispatch(login(JSON.parse(currentUserLocal)));
     }

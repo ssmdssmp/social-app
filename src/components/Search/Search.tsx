@@ -8,6 +8,7 @@ import { searchUser, searchPost } from "../../reducers/socialSlice";
 import { useNavigate } from "react-router-dom";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { format } from "timeago.js";
+import { nanoid } from "@reduxjs/toolkit";
 const Search = () => {
   const dispatch: any = useDispatch();
   const searchItems = useSelector(
@@ -94,6 +95,7 @@ const Search = () => {
             {searchItems.posts.map((item) => {
               return (
                 <li
+                  key={nanoid()}
                   onClick={(e) => {
                     navigate(`/post/${item._id}`);
                     searchFormik.handleReset(e);
