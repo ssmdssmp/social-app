@@ -23,7 +23,6 @@ const OnlineFriends = () => {
     socket.open();
 
     socket.on("ping", (data: string[]) => {
-      console.log("ping", data);
       //@ts-ignore
       dispatch(setOnlineFollowings(data));
       socket.emit("pong", {
